@@ -343,6 +343,10 @@ function cc.vertex2F(_x,_y)
     return { x = _x, y = _y }
 end
 
+function cc.vertex3F(_x,_y,_z)
+    return cc.Vertex3F(_x,_y,_z)
+end
+
 --Vertex3F
 function cc.Vertex3F(_x,_y,_z)
     return { x = _x, y = _y, z = _z }
@@ -411,6 +415,10 @@ end
 --PhysicsMaterial
 function cc.PhysicsMaterial(_density, _restitution, _friction)
 	return { density = _density, restitution = _restitution, friction = _friction }
+end
+
+function cc.vec2(_x, _y)
+    return { x = _x, y = _y}
 end
 
 function cc.vec3(_x, _y, _z)

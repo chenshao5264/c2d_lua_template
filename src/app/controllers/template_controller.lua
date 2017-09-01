@@ -23,7 +23,7 @@ end
 --// step3_1
 --// 关联画布上的元素
 function TemplateController:onRelateViewElements()
-    self.textNickname = self._viewRoot:getChildByName("Text_nickname")
+    self.textNickname = self._viewRoot:getChildByName("Text_nickname"):hide()
 
 end
 

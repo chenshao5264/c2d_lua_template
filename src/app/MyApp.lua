@@ -6,11 +6,16 @@ require "ccEx.init"
 require "app.configs.init"
 require "app.constant.init"
 
+
+MyApp.HttpUtils    = require("utils.http_utils")
+MyApp.ShaderHelper = require("app.helper.shader_helper")
+
+
 function MyApp:ctor()
     math.randomseed(os.time())
     cc(self):addComponent("ccEx.cc.components.behavior.EventProtocol"):exportMethods()
 
-    self._objs = {}
+    self._objModels = {}
 end
 
 function MyApp:run()
@@ -35,11 +40,11 @@ end
 --  * 设置model的映射
 --  */
 function MyApp:setModel(field, obj)
-    self._objs[field] = obj
+    self._objModels[field] = obj
 end
 
 function MyApp:getModel(field)
-    return self._objs[field]
+    return self._objModels[field]
 end
 
 -- /**

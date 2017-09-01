@@ -11,6 +11,12 @@ local TemplateView = class("TemplateView", BaseView)
 function TemplateView:ctor()
     self.super.ctor(self, gCsbConfig[self.__cname])
     
+    local sp = display.newSprite("rw.png")
+    self:addChild(sp)
+    sp:setPosition(display.cx, display.cy)
+
+
+    
 end
 
 function TemplateView:onInit()

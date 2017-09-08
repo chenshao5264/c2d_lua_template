@@ -5,16 +5,18 @@
 --
 
 local BaseController = require('app.controllers.base_controller')
-local TemplateController = class("TemplateController", BaseController)
+local M = class("TemplateController", BaseController)
+
+local kEvt = myApp.kEvt
 
 --// step1
-function TemplateController:ctor()
+function M:ctor()
     self.super.ctor(self)
 
 end
 
 --// step2
-function TemplateController:onInit()
+function M:onInit()
     self.super.onInit(self)
     --// todo
     --// ...
@@ -22,44 +24,44 @@ end
 
 --// step3_1
 --// 关联画布上的元素
-function TemplateController:onRelateViewElements()
+function M:onRelateViewElements()
     self.textNickname = self._viewRoot:getChildByName("Text_nickname"):hide()
 
 end
 
 --// step3_2
 --// 注册视图上的交互事件
-function TemplateController:onRegisterButtonClickEvent()
+function M:onRegisterButtonClickEvent()
 
 end
 
 --// step4
 --// 根据model数据填充ui
-function TemplateController:onFillData2UI()
+function M:onFillData2UI()
     self.textNickname:setString(self._models["player"]._nickname)
 end
 
 --// 监听视图数据变化事件
-function TemplateController:onRegisterEventProxy()
+function M:onRegisterEventProxy()
     cc.EventProxy.new(myApp, self)
-        :on(gkEvt.CHANGE_NAME, handler(self, self.onChangeNickname))
+        :on(kEvt.CHANGE_NAME, handler(self, self.onChangeNickname))
 end
 
-function TemplateController:onChangeNickname()
+function M:onChangeNickname()
 
-    self.textNickname:setString(self._models[gkModel.PLAYER]._nickname)
+    self.textNickname:setString(self._models["player"]._nickname)
 end
 
-function TemplateController:onEnter()
+function M:onEnter()
     self.super.onEnter(self)
     --// todo
     --// ...
 end
 
-function TemplateController:onExit()
+function M:onExit()
     --// todo
     --// ...
     self.super.onExit(self)
 end
 
-return TemplateController
+return M

@@ -8,7 +8,7 @@
 -- hvNode:setPosition(display.cx, display.cy)
 -- self:addChild(hvNode, 1)
 
--- hvNode:pushBackCustomBack(img1:clone())
+-- hvNode:pushBackCustomItem(img1:clone())
 
 local HVNode = class("HVNode", function()
     return cc.Node:create()
@@ -33,7 +33,7 @@ function HVNode:setItemsMargin(margin)
     self._itemsMargin = margin or 10
 end
 
-function HVNode:pushBackCustomBack(item)
+function HVNode:pushBackCustomItem(item)
     self._items[#self._items + 1] = item
     self:addChild(item)
     item:setPosition(0, 0)

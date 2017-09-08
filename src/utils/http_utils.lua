@@ -7,6 +7,7 @@
 
 local HttpUtils = {}
 
+--[[
 local function mosaicUrl(baseUrl, api, params)
     local url = baseUrl .. "/" ..api .."?"
     if type(params) == 'table' then
@@ -22,6 +23,7 @@ local function mosaicUrl(baseUrl, api, params)
 
     return url
 end
+--]]
 
 -- /**
 --  * http get请求 http://localhost:8080/login?account=chenshao&password=1q2w3e
@@ -37,6 +39,9 @@ function HttpUtils.httpGet(url, api, params, callback)
     xhr:registerScriptHandler(function()
         if xhr.readyState == 4 and (xhr.status >= 200 and xhr.status < 207) then
             printLog('HttpUtils GET', 'response: %s', xhr.response)
+            if callback then
+                callback(xhr.response)
+            end
         else
             printLog('HttpUtils GET', 'readyState: %s, status: %s', xhr.readyState, xhr.status)
         end
@@ -59,6 +64,9 @@ function HttpUtils.httpPost(url, api, params, callback)
     xhr:registerScriptHandler( function()
        if xhr.readyState == 4 and (xhr.status >= 200 and xhr.status < 207) then
             printLog('HttpUtils POST', 'response: %s', xhr.response)
+            if callback then
+                callback(xhr.response)
+            end
         else
             printLog('HttpUtils POST', 'readyState: %s, status: %s', xhr.readyState, xhr.status)
         end

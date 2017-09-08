@@ -14,11 +14,12 @@ local PlayerModel = class("PlayerModel", BaseModel)
 PlayerModel.schema = clone(BaseModel.schema)
 PlayerModel.schema["nickname"]   = "chenshao01"
 PlayerModel.schema["age"]        = {"number", 10}
-PlayerModel.schema["equipments"] = {{"table"}, {a = 1, b = 2}}
+PlayerModel.schema["equipments"] = {"table", {a = 1, b = 2}}
 
 
 function PlayerModel:ctor()
     self.super.ctor(self, PlayerModel.schema)
+
 end
 
 
@@ -27,7 +28,7 @@ function PlayerModel:setNickname(value, isEmit)
         isEmit = true
     end
 
-    self:setSchema("nickname", value, isEmit, gkEvt.CHANGE_NAME)
+    self:setSchema("nickname", value, isEmit, myApp.kEvt.CHANGE_NAME)
 end
 
 function PlayerModel:setSchema(field, schema, isEmit, evtName)

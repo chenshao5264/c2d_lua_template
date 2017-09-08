@@ -1,25 +1,25 @@
 
 local MyApp = class("MyApp")
 
-
 require "ccEx.init"
-require "app.configs.init"
-require "app.constant.init"
-
-
-MyApp.HttpUtils    = require("utils.http_utils")
-MyApp.ShaderHelper = require("app.helper.shader_helper")
-
 
 function MyApp:ctor()
     math.randomseed(os.time())
     cc(self):addComponent("ccEx.cc.components.behavior.EventProtocol"):exportMethods()
 
     self._objModels = {}
+
+    
 end
 
 function MyApp:run()
-    local scene = require("app.scenes.home_scene").new()
+    require("app.init")
+
+    --// 初始化app model
+    local appModel = self:createModel(self.kModel.APP)
+    self:setModel(self.kModel.APP, appModel)
+
+    local scene = require("app.scenes.loading_scene").new()
     display.runScene(scene)
 end
 

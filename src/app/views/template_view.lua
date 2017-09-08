@@ -5,30 +5,31 @@
 --
 
 local BaseView = require('app.views.base_view')
-local TemplateView = class("TemplateView", BaseView)
+local M = class("TemplateView", BaseView)
 
 
-function TemplateView:ctor()
-    self.super.ctor(self, gCsbConfig[self.__cname])
+function M:ctor()
+    self.super.ctor(self, myApp.kCSB[self.__cname])
     
     local sp = display.newSprite("rw.png")
     self:addChild(sp)
     sp:setPosition(display.cx, display.cy)
 
-
+    local ShaderHelper = require("app.helper.shader_helper")
+    ShaderHelper:outline(sp, false, {ply = 5.0, color = ShaderHelper:convertColor3b(cc.c3b(1, 1, 0))})
     
 end
 
-function TemplateView:onInit()
+function M:onInit()
     self.super.onInit(self)
 end
 
-function TemplateView:onEnter()
+function M:onEnter()
     self.super.onEnter(self)
 end
 
-function TemplateView:onExit()
+function M:onExit()
     self.super.onExit(self)
 end
 
-return TemplateView
+return M

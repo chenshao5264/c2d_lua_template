@@ -38,3 +38,6 @@ cc.BackpackBoxScrollView = require("ccEx.BackpackScrollView")
 -- myApp:emit("Evt_XXX", {name = "11111", age = 10})
 
 require "ccEx.cc.init"
+
+
+require "ccEx.functions"

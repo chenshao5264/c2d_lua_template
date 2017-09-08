@@ -4,6 +4,10 @@
 -- Brief: 
 --
 
-gCsbConfig = {
+local kCSB = {
     TemplateView = "csui/MainScene.csb",
 }
+
+return kCSB
+
+

@@ -45,10 +45,14 @@ function BackpackBox:setRowsMargin(rowsMargin)
     self._rowsMargin = rowsMargin or 10
 end
 
-function BackpackBox:pushBackCustomBack(item)
+function BackpackBox:pushBackCustomItem(item)
     self._items[#self._items + 1] = item
     self:addChild(item)
-    item:setPosition(0, 0)
+    if item.x and item.y then
+        item:setPosition(item.x, item.y)
+    else
+        item:setPosition(0, 0)
+    end
 
     self:adjust()
 end
@@ -63,6 +67,10 @@ end
 
 function BackpackBox:getItems()
     return self._items
+end
+
+function BackpackBox:setActionCompletedCallBack(callback)
+    self._actionCompleted = callback
 end
 
 function BackpackBox:adjust()
@@ -84,7 +92,8 @@ function BackpackBox:adjust()
     for i = 1, itemCount do
         local item = items[i]
         item:setTag(i)
-        if i % self._rowItemCount == 1 then
+
+        if self._rowItemCount == 1 or i % self._rowItemCount == 1 then
             itemX = firstPos.x
             itemY = itemY - itemHeight
         else
@@ -96,7 +105,12 @@ function BackpackBox:adjust()
             if item:getPositionX() ~= itemX or item:getPositionY() ~= itemY then
                 local moveTo = cc.MoveTo:create(0.3, cc.p(itemX, itemY))
                 item:stopAllActions()
-                item:runAction(moveTo)
+                item:runAction(cc.Sequence:create(moveTo, cc.CallFunc:create(function()
+                    if self._actionCompleted then
+                        self._actionCompleted()
+                        self._actionCompleted = nil
+                    end
+                end)))
            end
         else
             item:setPositionX(itemX)
@@ -131,10 +145,14 @@ function BackpackBox:insertItemByIndex(item, idx, isAnimation)
     self._isAnimation = isAnimation
 
     if idx > #self._items then
-        self:pushBackCustomBack(item)
+        self:pushBackCustomItem(item)
     else
         table.insert(self._items, idx, item)
-        item:setPosition(0, 0)
+        if item.x and item.y then
+            item:setPosition(item.x, item.y)
+        else
+            item:setPosition(0, 0)
+        end
         self:addChild(item)
         self:adjust()
     end

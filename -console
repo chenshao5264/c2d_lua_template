@@ -22,7 +22,7 @@ Get data from file(E:\cocos_github\c2d_lua_template\.product) failed, error code
 
 File(.product) init failed!
 
-AppDelegate::applicationDidFinishLaunching-thread@740
+AppDelegate::applicationDidFinishLaunching-thread@700
 
 ProtocolImageLoader::ProtocolImageLoader
 
@@ -1502,12 +1502,4 @@ WebSocket was deprecated please use cc.WebSocket instead.
 [LUA-print] [INFO] # display.top_bottom           = {x = 640.00, y = 0.00}
 
 [LUA-print] [INFO] #
-
-suffix = csb
-
-textureSize = 0
-
-[LUA-print] [INFO] table: 0x0b6677e8 [EventProtocol] addEventListener() - event: 1, handle: 1, tag: 
-
-[LUA-print] [INFO] table: 0x0b6677e8 [EventProtocol] removeEventListener() - remove listener [1] for event 1
 

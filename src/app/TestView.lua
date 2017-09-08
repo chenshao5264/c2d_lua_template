@@ -11,7 +11,7 @@ function TestView:ctor()
 	local function onKeyReleased(keyCode, event)
 		
         if keyCode == 47 then
-            local player =  myApp:getModel(gkModel.PLAYER)
+            local player =  myApp:getModel("player")
 
             player:setNickname("chenshao02")
         elseif keyCode == 48 then

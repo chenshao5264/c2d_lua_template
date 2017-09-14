@@ -15,9 +15,11 @@ function M:ctor()
     self:addChild(sp)
     sp:setPosition(display.cx, display.cy)
 
-    local ShaderHelper = require("app.helper.shader_helper")
-    ShaderHelper:outline(sp, false, {ply = 5.0, color = ShaderHelper:convertColor3b(cc.c3b(1, 1, 0))})
-    
+    --local ShaderHelper = require("app.helper.shader_helper")
+    --ShaderHelper:outline(sp, false, {ply = 5.0, color = ShaderHelper:convertColor3b(cc.c3b(1, 1, 0))})
+
+    --ShaderHelper:flow(sp, false, {factor = 1, speed = 0.1, degree = 20})
+
 end
 
 function M:onInit()

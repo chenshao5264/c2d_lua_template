@@ -4,6 +4,11 @@
 -- Brief: 
 --
 
+
+require "debugtool.init"
+
+
+
 --// app通用配置
 myApp.kCommon = require("app.configs.common_config") 
 
@@ -30,5 +35,3 @@ local def = require("app.constant.define_const")
 myApp.utility = require("utils.utility")
 
 myApp.LocalStore = require("utils.local_store")
-
-

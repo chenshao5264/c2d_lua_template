@@ -1,0 +1,30 @@
+<snippet>
+    <content><![CDATA[
+local BaseView = require('app.views.base_view')
+local M = class("${1:xxx}View", BaseView)
+
+
+function M:ctor()
+    self.super.ctor(self, myApp.kCSB[self.__cname])
+    
+end
+
+function M:onInit()
+    self.super.onInit(self)
+end
+
+function M:onEnter()
+    self.super.onEnter(self)
+end
+
+function M:onExit()
+    self.super.onExit(self)
+end
+
+return M
+]]></content>
+    <!-- Optional: Set a tabTrigger to define how to trigger the snippet -->
+    <tabTrigger>view</tabTrigger>
+    <!-- Optional: Set a scope to limit where the snippet will trigger -->
+    <!-- <scope>source.python</scope> -->
+</snippet>

@@ -1,0 +1,24 @@
+<snippet>
+    <content><![CDATA[
+local BaseModel = require('app.models.base_model')
+local Model = class("${1:xxx}Model", BaseModel)
+
+local kSchema = myApp.kSchema
+
+Model.schema = clone(BaseModel.schema)
+Model.schema["playerID"]      = {"number", -1}
+
+
+function Model:ctor()
+    self.super.ctor(self, Model.schema)
+
+end
+
+
+return Model
+]]></content>
+    <!-- Optional: Set a tabTrigger to define how to trigger the snippet -->
+    <tabTrigger>model</tabTrigger>
+    <!-- Optional: Set a scope to limit where the snippet will trigger -->
+    <!-- <scope>source.python</scope> -->
+</snippet>

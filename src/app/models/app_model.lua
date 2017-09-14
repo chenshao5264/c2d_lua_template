@@ -4,7 +4,7 @@
 -- Brief: 
 --
 local BaseModel = require('app.models.base_model')
-local Model = class("ResponseModel", BaseModel)
+local Model = class("AppModel", BaseModel)
 
 local kSchema = myApp.kSchema
 

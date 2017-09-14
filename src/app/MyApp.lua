@@ -19,8 +19,16 @@ function MyApp:run()
     local appModel = self:createModel(self.kModel.APP)
     self:setModel(self.kModel.APP, appModel)
 
-    local scene = require("app.scenes.loading_scene").new()
+    local scene = require("app.scenes.template_scene").new()
     display.runScene(scene)
+end
+
+function MyApp:setRunningScene(scene)
+    self._runningScene = scene
+end
+
+function MyApp:getRunningScene()
+    return self._runningScene
 end
 
 -- /**

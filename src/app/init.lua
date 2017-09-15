@@ -35,3 +35,6 @@ local def = require("app.constant.define_const")
 myApp.utility = require("utils.utility")
 
 myApp.LocalStore = require("utils.local_store")
+
+--// 定时器
+myApp.scheduler = require("utils.scheduler")

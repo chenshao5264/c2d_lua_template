@@ -12,7 +12,7 @@ function TestView:ctor()
 		
         if keyCode == 47 then
             if not g_logView then
-            local logView = require("debugtool.log_view").new()
+                local logView = require("debugtool.log_view").new()
                 logView:setPosition(0, 0)
                 myApp:getRunningScene():addChild(logView, 0xffffff)
                 g_logView = logView
@@ -25,9 +25,9 @@ function TestView:ctor()
                 g_logView:show()
             end
         elseif keyCode == 48 then
-           
+
         elseif keyCode == 49 then
-           
+
         end
     end
 

@@ -7,6 +7,7 @@ local LogView = class("LogView", function()
     return ccui.Layout:create()
 end)
 
+local upload = import(".upload")
 
 local CELL_WIDTH  = 50
 local CELL_HEIGHT = 24
@@ -19,21 +20,75 @@ local DISPLAY_LIEN_COUNT = math.ceil(TABLEVIEW_HEIGIT / CELL_HEIGHT)
 local sharedScheduler = cc.Director:getInstance():getScheduler()
 
 function LogView:ctor()
+
     self:setContentSize(cc.size(display.width, display.height))
     self:setBackGroundColorType(1)
     self:setBackGroundColor(cc.c3b(0, 0, 0))
     self:setBackGroundColorOpacity(200)
     self:setTouchEnabled(true)
 
+    self._numOfCell = 0
     self._textLines = {}
     self:loadLogFile(gCurLogFilePath)
 
     self:createLogTableView()
-        
+    
+    --// btn历史日志
+    local btnLookHistoryLog = ccui.Button:create("debugtool/item_cell.png", "debugtool/item_cell.png", "")
+    btnLookHistoryLog:setContentSize(cc.size(160, 50))
+    btnLookHistoryLog:setScale9Enabled(true)
+    btnLookHistoryLog:setTitleText("历史日志")
+    btnLookHistoryLog:setTitleFontSize(30)
+    btnLookHistoryLog:setTitleColor(cc.c3b(0, 0, 0))
+    btnLookHistoryLog:setPosition(display.left + 200, display.top - 25)
+    self:addChild(btnLookHistoryLog, 1)
+    btnLookHistoryLog:onClick_(function()
+        local view = require("debugtool.file_list_view").new(self)
+        self:addChild(view, 1)
+        view:setPosition(display.cx, display.cy)
+    end)
+
+    --// btn上传
+    local btnUpload = ccui.Button:create("debugtool/item_cell.png", "debugtool/item_cell.png", "")
+    btnUpload:setContentSize(cc.size(100, 50))
+    btnUpload:setScale9Enabled(true)
+    btnUpload:setTitleText("上传")
+    btnUpload:setTitleFontSize(30)
+    btnUpload:setTitleColor(cc.c3b(0, 0, 0))
+    btnUpload:setPosition(display.left + 360, display.top - 25)
+    self:addChild(btnUpload, 1)
+    btnUpload:onClick_(function()
+        upload.upFile(gCurLogFilePath)
+    end)
+
+    --// btn所有日志文件
+    local btnRemoveLogs = ccui.Button:create("debugtool/item_cell.png", "debugtool/item_cell.png", "")
+    btnRemoveLogs:setContentSize(cc.size(280, 50))
+    btnRemoveLogs:setScale9Enabled(true)
+    btnRemoveLogs:setTitleText("清除所以日志文件")
+    btnRemoveLogs:setTitleFontSize(30)
+    btnRemoveLogs:setTitleColor(cc.c3b(0, 0, 0))
+    btnRemoveLogs:setPosition(display.right - 200, display.top - 25)
+    self:addChild(btnRemoveLogs, 1)
+    btnRemoveLogs:onClick_(function()
+        if gCurOpFile then
+            gCurOpFile:close()
+            gCurOpFile = nil
+        end
+        if cc.FileUtils:getInstance():isDirectoryExist(gDirRoot) then
+            cc.FileUtils:getInstance():removeDirectory(gDirRoot)
+        end
+        self:removeSelf()
+        g_logView = nil
+    end)
 end
 
 function LogView:loadLogFile(filePath)
+    self._textLines = {}
     local f = io.open(filePath, "r")
+    if not f then
+        return
+    end
     while true do
         local line = f:read("*line")
         if not line then 
@@ -44,6 +99,12 @@ function LogView:loadLogFile(filePath)
     end
 
     self._numOfCell = #self._textLines
+end
+
+function LogView:reloadTableView()
+    self:loadLogFile(gCurLogFilePath)
+
+    self.tableView:reloadData()
 end
 
 function LogView:createLogTableView()
@@ -103,7 +164,7 @@ function LogView:onTableCellAtIndex(table, idx)
         cell = cc.TableViewCell:new()
         label = cc.Label:create()
         label:setPosition(cc.p(0,0))
-        label:setSystemFontSize(20)
+        label:setSystemFontSize(18)
         label:setAnchorPoint(cc.p(0,0))
         label:setTag(10086)
         cell:addChild(label)
@@ -114,10 +175,9 @@ function LogView:onTableCellAtIndex(table, idx)
     if nil ~= label then
         local lineNumber = idx + 1
         local lineText  = self._textLines[lineNumber]
-
         label:setTextColor(textColor(lineText))
 
-        label:setString(lineNumber .." " ..self._textLines[lineNumber])
+        label:setString(lineNumber .." " ..lineText)
     end
 
     return cell

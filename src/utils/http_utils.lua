@@ -75,4 +75,21 @@ function HttpUtils.httpPost(url, api, params, callback)
     printLog('HttpUtils', 'http post url: %s', url)
 end
 
+function HttpUtils.upload(url)
+    local xhr = cc.XMLHttpRequest:new()
+    xhr:open('POST', url)
+    xhr:setRequestHeader("Content-Type", "text/plain")
+    xhr:registerScriptHandler( function()
+       if xhr.readyState == 4 and (xhr.status >= 200 and xhr.status < 207) then
+            printLog('HttpUtils POST', 'response: %s', xhr.response)
+            if callback then
+                callback(xhr.response)
+            end
+        else
+            printLog('HttpUtils POST', 'readyState: %s, status: %s', xhr.readyState, xhr.status)
+        end
+    end)
+    xhr:send()
+end
+
 return HttpUtils

@@ -20,6 +20,9 @@ function M:ctor()
 
     --ShaderHelper:flow(sp, false, {factor = 1, speed = 0.1, degree = 20})
 
+    -- myApp.scheduler.performWithDelayGlobal(self, function()
+    --     print("<==========")
+    -- end, 0.2)
 end
 
 function M:onInit()

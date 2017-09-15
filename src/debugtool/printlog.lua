@@ -7,10 +7,16 @@ local fileutils    = cc.FileUtils:getInstance()
 local writablePath = device.writablePath
 local old_print    = print
 
+gDirRoot          = device.writablePath .. "pntlog/" --// 日志根目录
+gDir              = nil --// 当前目录
+gCurLogFilePath   = nil --// 当前log路径
+gCurFilesListPath = nil --// 当前保存log文件列表的路径
+gCurOpFile = nil
+
 local function getLogDir()
-    local dir = device.writablePath .. "/pntlog/" ..os.date("%Y%m%d/")
+    local dir = gDirRoot ..os.date("%Y%m%d/")
     if not fileutils:isDirectoryExist(dir) then
-         fileutils:createDirectory(dir)
+        fileutils:createDirectory(dir)
     end
 
     return dir
@@ -25,28 +31,30 @@ local function concat(...)
     return table.concat(tb, "\t")
 end
 
-local logFile
 local function writeToFile(szStr)
 
-    if not logFile then
+    if not gCurOpFile then
         local fileName = string.format("%s.log", os.date("%H-%M-%S"))
-        logFile = io.open(getLogDir() ..fileName, "a+")
-        gCurLogFilePath = getLogDir() ..fileName
+        gCurOpFile = io.open(getLogDir() ..fileName, "a+")
+        gDir = getLogDir()
+        gCurLogFilePath = gDir ..fileName
 
-        local f = io.open(getLogDir() .."fileLists.txt", "a+")
+        local f = io.open(getLogDir() .."filesList.txt", "a+")
         if f then
+            gCurFilesListPath = getLogDir() .."filesList.txt"
             f:write(fileName .."\n")
             f:close()
         end
     end
     
-    local f = logFile
+    local f = gCurOpFile
     if f then
         f:write(szStr)
         f:flush()
     else
         old_print("文件不存在")
     end
+
 end
 
 function print(...)

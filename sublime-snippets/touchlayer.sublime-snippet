@@ -1,0 +1,27 @@
+<snippet>
+    <content><![CDATA[
+local function onTouchBegan(touch, event)
+
+    return false
+end
+
+local function onTouchMoved(touch, event)
+
+end
+
+local function onTouchEnded(touch, event)
+
+end
+
+local listener = cc.EventListenerTouchOneByOne:create()
+listener:registerScriptHandler(handler(self,self.onTouchBegan),cc.Handler.EVENT_TOUCH_BEGAN )
+listener:registerScriptHandler(handler(self,self.onTouchMoved),cc.Handler.EVENT_TOUCH_MOVED )
+listener:registerScriptHandler(handler(self,self.onTouchEnded),cc.Handler.EVENT_TOUCH_ENDED )
+local eventDispatcher = cc.Director:getInstance():getEventDispatcher()
+eventDispatcher:addEventListenerWithSceneGraphPriority(listener, ${1:})
+]]></content>
+    <!-- Optional: Set a tabTrigger to define how to trigger the snippet -->
+    <tabTrigger>touch</tabTrigger>
+    <!-- Optional: Set a scope to limit where the snippet will trigger -->
+    <!-- <scope>source.python</scope> -->
+</snippet>

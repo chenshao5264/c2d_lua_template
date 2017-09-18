@@ -47,7 +47,7 @@ function FileListView:ctor(ctrlLogView)
     self._labelSelectedFile = labelSelectedFile
 
     --// 查看日志
-    local btnLooFile = ccui.Button:create("debugtool/item_cell.png", "debugtool/item_cell.png", "")
+    local btnLooFile = ccui.Button:create("debuglog/item_cell.png", "debuglog/item_cell.png", "")
     btnLooFile:setContentSize(cc.size(100, 40))
     btnLooFile:setScale9Enabled(true)
     btnLooFile:setTitleText("查看")
@@ -65,7 +65,7 @@ function FileListView:ctor(ctrlLogView)
     self._btnLookFile = btnLooFile
 
     --//
-     local btnClose = ccui.Button:create("debugtool/item_cell.png", "debugtool/item_cell.png", "")
+     local btnClose = ccui.Button:create("debuglog/item_cell.png", "debuglog/item_cell.png", "")
     btnClose:setContentSize(cc.size(40, 40))
     btnClose:setScale9Enabled(true)
     btnClose:setTitleText("X")

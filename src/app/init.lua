@@ -5,7 +5,7 @@
 --
 
 
-require "debugtool.init"
+require "debuglog.init"
 
 
 

@@ -23,6 +23,11 @@ function MyApp:run()
     display.runScene(scene)
 end
 
+function MyApp:runScene(scenename)
+    local scene = require("app.scenes." ..scenename).new()
+    display.runScene(scene)
+end
+
 function MyApp:setRunningScene(scene)
     self._runningScene = scene
 end

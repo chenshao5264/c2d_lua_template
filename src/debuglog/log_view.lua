@@ -68,7 +68,7 @@ function LogView:ctor()
     btnUpload:setTitleText("上传")
     btnUpload:setTitleFontSize(30)
     btnUpload:setTitleColor(cc.c3b(0, 0, 0))
-    btnUpload:setPosition(display.left + 500, display.top - 25)
+    btnUpload:setPosition(display.left + 490, display.top - 25)
     self:addChild(btnUpload, 1)
     btnUpload:onClick_(function()
         upload.upFile(gCurLogFilePath)
@@ -106,6 +106,10 @@ function LogView:ctor()
         end
         self:removeSelf()
     end)
+end
+
+function LogView:seekMatching()
+
 end
 
 function LogView:loadLogFile(filePath)
@@ -170,19 +174,21 @@ function LogView:onCellSizeForTable(table, idx)
     return CELL_HEIGHT, CELL_WIDTH
 end
 
+
+
 local function textColor(text)
     if string.find(text, "%[TRACE%]") then
-        return LOGGER_LEVEL_COLOR[1]
+        return LOGGER_LEVEL_TEXT_COLOR[1]
     elseif string.find(text, "%[INFO%]") then
-        return LOGGER_LEVEL_COLOR[2]
+        return LOGGER_LEVEL_TEXT_COLOR[2]
     elseif string.find(text, "%[WARN%]") then
-        return LOGGER_LEVEL_COLOR[3]
+        return LOGGER_LEVEL_TEXT_COLOR[3]
     elseif string.find(text, "%[ERROR%]") then
-        return LOGGER_LEVEL_COLOR[4]
+        return LOGGER_LEVEL_TEXT_COLOR[4]
     elseif string.find(text, "%[FATAL%]") then
-        return LOGGER_LEVEL_COLOR[5]
+        return LOGGER_LEVEL_TEXT_COLOR[5]
     else 
-        return LOGGER_LEVEL_COLOR[0]
+        return LOGGER_LEVEL_TEXT_COLOR[0]
     end
 end
 

@@ -3,11 +3,14 @@
 -- Date: 2017-09-12 17:06:47
 -- Brief: 
 --
+
+
+
 local fileutils    = cc.FileUtils:getInstance()
 local writablePath = device.writablePath
 local old_print    = print
 
-gDirRoot          = device.writablePath .. "pntlog/" --// 日志根目录
+gDirRoot          = device.writablePath .. "pntlogs/" --// 日志根目录
 gDir              = nil --// 当前目录
 gCurLogFilePath   = nil --// 当前log路径
 gCurFilesListPath = nil --// 当前保存log文件列表的路径
@@ -22,17 +25,28 @@ local function getLogDir()
     return dir
 end
 
+local function checkArgType(arg)
+    if type(arg) == "table" then
+        local result = dump(arg, "table_table", 10)
+        arg = table.concat(result, "\n")
+    else
+        arg = tostring(arg)
+    end
+
+    return arg
+end
+
 local function concat(...)
     local tb = {}
     for i=1, select('#', ...) do
         local arg = select(i, ...)  
-        tb[#tb + 1] = tostring(arg)
+
+        tb[#tb + 1] = checkArgType(arg)
     end
     return table.concat(tb, "\t")
 end
 
 local function writeToFile(szStr)
-
     if not gCurOpFile then
         local fileName = string.format("%s.log", os.date("%H-%M-%S"))
         gCurOpFile = io.open(getLogDir() ..fileName, "a+")
@@ -54,7 +68,6 @@ local function writeToFile(szStr)
     else
         old_print("文件不存在")
     end
-
 end
 
 function print(...)
@@ -64,85 +77,33 @@ function print(...)
     old_print(...)
 end
 
---//
-LOGGER_LEVEL = {
-    ALL   = 0,  
-    TRACE = 1,
-    INFO  = 2,
-    WARN  = 3,
-    ERROR = 4,
-    FATAL = 5,
-}
+local color      = import(".color")
+local colorPrint = color.colorPrint
+local colors = {color.BLUE, color.GREEN, color.YELLOW, color.RED, color.PURPLE}
 
-LOGGER_LEVEL_COLOR = {
-    [0] = cc.c4b(255, 255, 255, 255),
-    cc.c4b(0, 0, 255, 255),       --// 蓝
-    cc.c4b(0, 255, 0, 255),       --// 绿
-    cc.c4b(255, 255, 0, 255),     --// 黄
-    cc.c4b(255, 0, 0, 255),       --// 红
-    cc.c4b(255, 192, 0, 203),     --// 粉
-}
+local methods    = {"trace","info", "warn", "error", "fatal"}
+local levels = {ALL = 0}
 
 logger = {}
 
-logger.level = LOGGER_LEVEL.TRACE
+local funcs = {}
+local nop = function() end
 
--- level 1
-logger.trace = function(...)
-    if logger.level > LOGGER_LEVEL.TRACE then
-        return
+for i, name in ipairs(methods) do
+    local level_name = string.upper(name)
+    levels[level_name] = i
+    local tag = '['..level_name..']'
+    funcs[name] = function(...)
+        colorPrint(colors[i], tag, ...)
     end
-
-    local pntRet = os.date("[%H:%M:%S] ") .."[TRACE] " .. concat(...) .. "\n"
-    writeToFile(pntRet)
-
-    old_print("[TRACE] " .. ...)
 end
 
--- level 2
-logger.info = function(...)
-    if logger.level > LOGGER_LEVEL.INFO then
-        return
+function logger.setLevel(lv)
+    for i, funcname in ipairs(methods) do
+        if i < lv then
+            logger[funcname] = nop
+        else
+            logger[funcname] = funcs[funcname]
+        end
     end
-
-    local pntRet = os.date("[%H:%M:%S] ") .."[INFO] " .. concat(...) .. "\n"
-    writeToFile(pntRet)
-
-    old_print("[INFO] " .. ...)
-end
-
--- level 3
-logger.warn = function(...)
-    if logger.level > LOGGER_LEVEL.WARN then
-        return
-    end
-
-    local pntRet = os.date("[%H:%M:%S] ") .."[WARN] " .. concat(...) .. "\n"
-    writeToFile(pntRet)
-
-    old_print("[WARN] " .. ...)
-end
-
--- level 4
-logger.error = function(...)
-    if logger.level > LOGGER_LEVEL.ERROR then
-        return
-    end
-
-    local pntRet = os.date("[%H:%M:%S] ") .."[ERROR] " .. concat(...) .. "\n"
-    writeToFile(pntRet)
-
-    old_print("[ERROR] " .. ...)
-end
-
--- level 5
-logger.fatal = function(...)
-    if logger.level > LOGGER_LEVEL.FATAL then
-        return
-    end
-
-    local pntRet = os.date("[%H:%M:%S] ") .."[FATAL] " .. concat(...) .. "\n"
-    writeToFile(pntRet)
-
-    old_print("[FATAL] " .. ...)
 end

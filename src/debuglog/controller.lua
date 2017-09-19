@@ -4,6 +4,10 @@
 -- Brief: 
 --
 
+if not IS_DEBUG_VIEW then
+    return
+end
+
 local sharedScheduler = cc.Director:getInstance():getScheduler()
 
 local math_abs = math.abs

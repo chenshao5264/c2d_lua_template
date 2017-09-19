@@ -13,8 +13,8 @@ function TestView:ctor()
         if keyCode == 47 then
             
             myApp:runScene("loading_scene")
-        elseif keyCode == 49 then
-
+        elseif keyCode == 48 then
+            
         end
     end
 
@@ -24,7 +24,6 @@ function TestView:ctor()
     local eventDispatcher = self:getEventDispatcher()
     eventDispatcher:addEventListenerWithSceneGraphPriority(listener, self)
 
-    --// Êó±êÊÂ¼þ
     local mouseListener = cc.EventListenerMouse:create()
     mouseListener:registerScriptHandler(function(event)
         

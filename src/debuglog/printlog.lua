@@ -79,9 +79,9 @@ end
 
 local color      = import(".color")
 local colorPrint = color.colorPrint
-local colors = {color.BLUE, color.GREEN, color.YELLOW, color.RED, color.PURPLE}
+local colors = {color.BLUE, color.CYAN, color.GREEN, color.YELLOW, color.RED, color.PURPLE}
 
-local methods    = {"trace","info", "warn", "error", "fatal"}
+local methods    = {"trace", "debug", "info", "warn", "error", "fatal"}
 local levels = {ALL = 0}
 
 logger = {}

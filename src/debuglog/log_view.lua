@@ -179,14 +179,16 @@ end
 local function textColor(text)
     if string.find(text, "%[TRACE%]") then
         return LOGGER_LEVEL_TEXT_COLOR[1]
-    elseif string.find(text, "%[INFO%]") then
+    elseif string.find(text, "%[DEBUG%]") then
         return LOGGER_LEVEL_TEXT_COLOR[2]
-    elseif string.find(text, "%[WARN%]") then
+    elseif string.find(text, "%[INFO%]") then
         return LOGGER_LEVEL_TEXT_COLOR[3]
-    elseif string.find(text, "%[ERROR%]") then
+    elseif string.find(text, "%[WARN%]") then
         return LOGGER_LEVEL_TEXT_COLOR[4]
-    elseif string.find(text, "%[FATAL%]") then
+    elseif string.find(text, "%[ERROR%]") then
         return LOGGER_LEVEL_TEXT_COLOR[5]
+    elseif string.find(text, "%[FATAL%]") then
+        return LOGGER_LEVEL_TEXT_COLOR[6]
     else 
         return LOGGER_LEVEL_TEXT_COLOR[0]
     end

@@ -11,9 +11,9 @@ local platform = cc.Application:getInstance():getTargetPlatform()
 
 if platform == cc.PLATFORM_OS_WINDOWS then
     -- 调用windows api设置控制台文本颜色
-    local STD_INPUT_HANDLE= -10
+    local STD_INPUT_HANDLE  = -10
     local STD_OUTPUT_HANDLE = -11
-    local STD_ERROR_HANDLE = -12
+    local STD_ERROR_HANDLE  = -12
 
     local ffi = require('ffi')
     ffi.cdef[[
@@ -55,6 +55,7 @@ GREEN   = bor(FOREGROUND_GREEN, FOREGROUND_INTENSITY)
 PURPLE  = bor(FOREGROUND_RED, FOREGROUND_BLUE, FOREGROUND_INTENSITY)
 YELLOW  = bor(FOREGROUND_RED, FOREGROUND_GREEN, FOREGROUND_INTENSITY)
 DEFAULT = bor(FOREGROUND_RED, FOREGROUND_GREEN, FOREGROUND_BLUE)
+CYAN    = bor(FOREGROUND_BLUE, FOREGROUND_GREEN)
 
 function colorPrint(c, ...)
     setColor(c);

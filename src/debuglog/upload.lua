@@ -10,10 +10,9 @@ function upload.upFile(filePath)
     local xhr = cc.XMLHttpRequest:new()
     
 
-    xhr:setRequestHeader("Content-Type", "text/plain")
-
     local disp = string.format("form-data; name=\"file\"; filename=\"%s\"", filePath)
     xhr:setRequestHeader("Content-Disposition", disp)
+    xhr:setRequestHeader("Content-Type", "text/plain")
     
     xhr:open('POST', "http://localhost:3000/upload")
 
@@ -28,7 +27,7 @@ function upload.upFile(filePath)
         end
     end)
     
-    xhr:send()
+    xhr:send(cc.FileUtils:getInstance():getStringFromFile(filePath))
 end
 
 

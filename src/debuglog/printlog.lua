@@ -71,8 +71,10 @@ local function writeToFile(szStr)
 end
 
 function print(...)
-    local pntRet = os.date("[%H:%M:%S] ") .. concat(...) .. "\n"
-    writeToFile(pntRet)
+    if IS_WRITE_TO_FILE then
+        local pntRet = os.date("[%H:%M:%S] ") .. concat(...) .. "\n"
+        writeToFile(pntRet)
+    end
 
     old_print(...)
 end

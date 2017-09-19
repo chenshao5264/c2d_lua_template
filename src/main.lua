@@ -6,10 +6,15 @@ cc.FileUtils:getInstance():setPopupNotify(false)
 require "config"
 require "cocos.init"
 
-
 local _G__TRACKBACK__ = function(msg)
     local msg = debug.traceback(msg, 3)
-    print(msg)
+
+    if logger and logger.error then
+        logger.error(msg)
+    else
+        print(msg)
+    end
+    
  
     return msg
 end

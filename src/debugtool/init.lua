@@ -9,7 +9,7 @@ TAG_BUTTON_DEBUG = 0xff0002
 
 import(".printLog")
 
-import(".logger_interface")
+import(".debug_interface")
 
 import(".controller")
 

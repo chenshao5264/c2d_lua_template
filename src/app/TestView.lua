@@ -14,7 +14,9 @@ function TestView:ctor()
             
             myApp:runScene("loading_scene")
         elseif keyCode == 48 then
-            
+            for i = 1, 1000 do 
+                logger.info("upload test " ..i)
+            end
         end
     end
 

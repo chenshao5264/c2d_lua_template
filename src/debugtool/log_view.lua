@@ -9,6 +9,8 @@ end)
 
 local upload = import(".upload")
 
+local RES_BUTTON = "debugtool/item_cell.png"
+
 local CELL_WIDTH  = 50
 local CELL_HEIGHT = 24
 
@@ -34,7 +36,7 @@ function LogView:ctor()
     self:createLogTableView()
     
     --// btn历史日志
-    local btnLookHistoryLog = ccui.Button:create("debuglog/item_cell.png", "debuglog/item_cell.png", "")
+    local btnLookHistoryLog = ccui.Button:create(RES_BUTTON, RES_BUTTON, "")
     btnLookHistoryLog:setContentSize(cc.size(160, 50))
     btnLookHistoryLog:setScale9Enabled(true)
     btnLookHistoryLog:setTitleText("历史日志")
@@ -43,13 +45,13 @@ function LogView:ctor()
     btnLookHistoryLog:setPosition(display.left + 200, display.top - 25)
     self:addChild(btnLookHistoryLog, 1)
     btnLookHistoryLog:onClick_(function()
-        local view = require("debuglog.file_list_view").new(self)
+        local view = require("debugtool.file_list_view").new(self)
         self:addChild(view, 1)
         view:setPosition(display.cx, display.cy)
     end)
 
     --// btn刷新日志
-    local btnRefresh = ccui.Button:create("debuglog/item_cell.png", "debuglog/item_cell.png", "")
+    local btnRefresh = ccui.Button:create(RES_BUTTON, RES_BUTTON, "")
     btnRefresh:setContentSize(cc.size(100, 50))
     btnRefresh:setScale9Enabled(true)
     btnRefresh:setTitleText("刷新")
@@ -62,7 +64,7 @@ function LogView:ctor()
     end)
 
     --// btn上传
-    local btnUpload = ccui.Button:create("debuglog/item_cell.png", "debuglog/item_cell.png", "")
+    local btnUpload = ccui.Button:create(RES_BUTTON, RES_BUTTON, "")
     btnUpload:setContentSize(cc.size(100, 50))
     btnUpload:setScale9Enabled(true)
     btnUpload:setTitleText("上传")
@@ -71,11 +73,13 @@ function LogView:ctor()
     btnUpload:setPosition(display.left + 490, display.top - 25)
     self:addChild(btnUpload, 1)
     btnUpload:onClick_(function()
-        upload.upFile(gCurLogFilePath)
+        
+        --local filePath = gCurLogFilePath
+        upload:upFileString(gCurLogFilePath)
     end)
 
     --// btn关闭
-    local btnColse = ccui.Button:create("debuglog/item_cell.png", "debuglog/item_cell.png", "")
+    local btnColse = ccui.Button:create(RES_BUTTON, RES_BUTTON, "")
     btnColse:setContentSize(cc.size(50, 50))
     btnColse:setScale9Enabled(true)
     btnColse:setTitleText("X")
@@ -88,7 +92,7 @@ function LogView:ctor()
     end)
 
     --// btn清除所有日志文件
-    local btnRemoveLogs = ccui.Button:create("debuglog/item_cell.png", "debuglog/item_cell.png", "")
+    local btnRemoveLogs = ccui.Button:create(RES_BUTTON, RES_BUTTON, "")
     btnRemoveLogs:setContentSize(cc.size(280, 50))
     btnRemoveLogs:setScale9Enabled(true)
     btnRemoveLogs:setTitleText("清除所以日志文件")

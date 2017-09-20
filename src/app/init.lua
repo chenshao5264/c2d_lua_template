@@ -8,7 +8,7 @@ if APP_ENV == "DEVELOP" then
     cc.Director:getInstance():getConsole():listenOnTCP(5264)
 end
 
-require "debuglog.init"
+require "debugtool.init"
 
 --// app通用配置
 myApp.kCommon = require("app.configs.common_config") 

@@ -17,7 +17,7 @@ local initUI = function()
     local isMoved = false
 
     --// btn 开启
-    local btnDebug = ccui.Button:create("debuglog/item_cell.png", "debuglog/item_cell.png", "")
+    local btnDebug = ccui.Button:create("debugtool/item_cell.png", "debugtool/item_cell.png", "")
     btnDebug:setContentSize(cc.size(100, 50))
     btnDebug:setScale9Enabled(true)
     btnDebug:setTitleText("Dbg")
@@ -31,7 +31,7 @@ local initUI = function()
             isMoved = false
             return
         end
-        local logView = require("debuglog.log_view").new()
+        local logView = require("debugtool.log_view").new()
         logView:setPosition(0, 0)
         logView:setTag(TAG_LOG_VIEW)
         myApp:getRunningScene():addChild(logView, 0xffff00)

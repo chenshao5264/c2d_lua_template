@@ -14,12 +14,21 @@ gDirRoot          = device.writablePath .. "pntlogs/" --// 日志根目录
 gDir              = nil --// 当前目录
 gCurLogFilePath   = nil --// 当前log路径
 gCurFilesListPath = nil --// 当前保存log文件列表的路径
-gCurOpFile = nil
+gCurOpFile        = nil --// 当前操作的文件
+gCurDate          = ""
 
 local function getLogDir()
-    local dir = gDirRoot ..os.date("%Y%m%d/")
+    local date = os.date("%Y%m%d")
+    gCurDate = date
+    local dir = gDirRoot ..date .."/"
     if not fileutils:isDirectoryExist(dir) then
         fileutils:createDirectory(dir)
+
+        local f = io.open(gDirRoot .."datelogs.txt", "a+")
+        if f then
+            f:write(date .."\n")
+            f:close()
+        end
     end
 
     return dir
@@ -27,7 +36,7 @@ end
 
 local function checkArgType(arg)
     if type(arg) == "table" then
-        local result = dump(arg, "table_table", 10)
+        local result = dump(arg, "table_table", 10, 10086)
         arg = table.concat(result, "\n")
     else
         arg = tostring(arg)

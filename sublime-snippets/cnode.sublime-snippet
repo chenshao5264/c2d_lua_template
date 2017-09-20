@@ -1,0 +1,25 @@
+<snippet>
+    <content><![CDATA[
+local M = class("${1:}", function()
+    return cc.Node:create()
+end)
+
+function M:ctor()
+    self:enableNodeEvents()
+end
+
+function M:onEnter()
+
+end
+
+function M:onExit()
+
+end
+
+return M
+]]></content>
+    <!-- Optional: Set a tabTrigger to define how to trigger the snippet -->
+    <tabTrigger>cnode</tabTrigger>
+    <!-- Optional: Set a scope to limit where the snippet will trigger -->
+    <!-- <scope>source.python</scope> -->
+</snippet>

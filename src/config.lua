@@ -32,3 +32,7 @@ CC_DESIGN_RESOLUTION = {
 APP_ENV = "DEVELOP"
 --APP_ENV = "TEST"
 --APP_ENV = "PUBLISH"
+
+
+LAUNCH_SCENE = "splash_scene"
+

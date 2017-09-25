@@ -62,7 +62,7 @@ end
 
 local language_ = app:getCurrentLanguage()
 if language_ == cc.LANGUAGE_CHINESE then
-    language_ = "cn"
+    language_ = "zh"
 elseif language_ == cc.LANGUAGE_FRENCH then
     language_ = "fr"
 elseif language_ == cc.LANGUAGE_ITALIAN then

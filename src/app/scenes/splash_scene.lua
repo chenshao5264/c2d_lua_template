@@ -6,13 +6,15 @@
 local BaseScene = require('app.scenes.base_scene')
 local M = class("LoadingScene", BaseScene)
 
-local kModel = myApp.kModel
+local kView = myApp.kView
 
 function M:ctor(...)
     self.super.ctor(self)
     --// todo
     --// ...
 
+    local mainView = myApp:createView(kView.SPLASH_VIEW)
+    self:addChild(mainView, 1)
 end
 
 function M:onInit()

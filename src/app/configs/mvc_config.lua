@@ -20,7 +20,7 @@ local kModel = {
 }
 
 local kView = {
-    
+    SPLASH_VIEW = "splash_view",
 }
 
 local kController = {

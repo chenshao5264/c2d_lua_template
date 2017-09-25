@@ -5,7 +5,7 @@
 --
 
 local kCSB = {
-    TemplateView = "csui/MainScene.csb",
+    SplashView = "csb/splash/SplashLayer.csb",
 }
 
 return kCSB

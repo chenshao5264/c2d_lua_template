@@ -4,15 +4,7 @@
 -- Brief: 
 --
 
-IS_WRITE_TO_FILE = true
 
---// 是否在app内开启debugview
-local platform = cc.Application:getInstance():getTargetPlatform()
-if platform == cc.PLATFORM_OS_WINDOWS then
-    IS_DEBUG_VIEW = true
-else
-    IS_DEBUG_VIEW = true
-end
 
 LOGGER_LEVEL_TEXT_COLOR = {
     [0] = cc.c4b(255, 255, 255, 255),

@@ -4,27 +4,26 @@ local MyApp = class("MyApp")
 require "ccEx.init"
 
 function MyApp:ctor()
-    math.randomseed(os.time())
     cc(self):addComponent("ccEx.cc.components.behavior.EventProtocol"):exportMethods()
 
-    self._objModels = {}
-
     
+
+    self._objModels = {}
 end
 
-function MyApp:run()
+function MyApp:beforeRun( )
     require("app.init")
-
+    
     --// 初始化app model
     local appModel = self:createModel(self.kModel.APP)
     self:setModel(self.kModel.APP, appModel)
-
-    local scene = require("app.scenes.template_scene").new()
-    display.runScene(scene)
 end
 
-function MyApp:runScene(scenename)
-    local scene = require("app.scenes." ..scenename).new()
+function MyApp:run()
+    
+    self:beforeRun()
+
+    local scene = require("app.scenes." ..LAUNCH_SCENE).new()
     display.runScene(scene)
 end
 

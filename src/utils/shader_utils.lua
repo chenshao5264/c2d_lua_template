@@ -3,13 +3,13 @@
 -- Date: 2017-09-01 13:43:39
 -- Brief: 
 --
-local ShaderHelper = {}
+local ShaderUtils = {}
 
 local VERT_SCOURCE = "shader/defalut.vert"
 local FRAG_OUTLINE_SCOURCE = "shader/outline.frag"
 local FRAG_FLOW_SCOURCE    = "shader/flow.frag"
 
-function ShaderHelper:convertColor3b(color)
+function ShaderUtils:convertColor3b(color)
     return cc.vec3(color.r, color.g, color.b)
 end
 
@@ -20,9 +20,9 @@ end
 --  * @param params 需要传到shader的参数 ply 描边厚度 color 描边颜色
 --  *
 --  * eg:
---  * ShaderHelper:outline(sp, false, {ply = 5.0, color = ShaderHelper:convertColor3b(cc.c3b(1, 1, 0))})
+--  * ShaderUtils:outline(sp, false, {ply = 5.0, color = ShaderUtils:convertColor3b(cc.c3b(1, 1, 0))})
 --  */
-function ShaderHelper:outline(node, isNotSprite, params)
+function ShaderUtils:outline(node, isNotSprite, params)
     params = params or {}
 
     local pProgram = cc.GLProgram:createWithFilenames(VERT_SCOURCE, FRAG_OUTLINE_SCOURCE)
@@ -54,9 +54,9 @@ end
 --  * @param params 需要传到shader的参数 factor 亮度因子 speed 每0.1s移动速度 degree 角度
 --  *
 --  * eg:
---  * ShaderHelper:flow(sp, false, {factor = 1.5, speed = 1, degree = 10})
+--  * ShaderUtils:flow(sp, false, {factor = 1.5, speed = 1, degree = 10})
 --  */
-function ShaderHelper:flow(node, isNotSprite, params)
+function ShaderUtils:flow(node, isNotSprite, params)
     params = params or {}
 
     local pProgram = cc.GLProgram:createWithFilenames(VERT_SCOURCE, FRAG_FLOW_SCOURCE)
@@ -81,4 +81,4 @@ function ShaderHelper:flow(node, isNotSprite, params)
     end
 end
 
-return ShaderHelper
+return ShaderUtils

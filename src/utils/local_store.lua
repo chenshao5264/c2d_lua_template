@@ -11,12 +11,17 @@ local LocalStore = {}
 
 local json = json
 
+
 function LocalStore:readFromFile()
     local writablePath = cc.FileUtils:getInstance():getWritablePath()
 
-    local storeFile = writablePath .."/localstore.json"
+    local storeFile = writablePath .."localstore.json"
+    local strContent = cc.FileUtils:getInstance():getStringFromFile(storeFile)
+    if string.len(strContent) > 0 then
+        return json.decode(strContent) 
+    end
 
-    return json.decode(cc.FileUtils:getInstance():getStringFromFile(storeFile))
+    return {}
 end
 
 function LocalStore:writeToFile(str)
@@ -30,6 +35,5 @@ function LocalStore:writeToFile(str)
         f:close()
     end
 end
-
 
 return LocalStore

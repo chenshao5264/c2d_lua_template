@@ -4,11 +4,7 @@
 -- Brief: 
 --
 
-if APP_ENV == "DEVELOP" then
-    cc.Director:getInstance():getConsole():listenOnTCP(5264)
-end
-
-require "debugtool.init"
+require("debugtool.init")
 
 --// app通用配置
 myApp.kCommon = require("app.configs.common_config") 
@@ -30,10 +26,16 @@ myApp.kSchema = require("app.constant.schema_const")
 myApp.kEvt    = require("app.constant.evt_const")
 
 --// 游戏中用到的常量
-local def = require("app.constant.define_const")
+myApp.kDef  = require("app.constant.define_const")
 
 --// 实用工具集
-myApp.utility = require("utils.utility")
+myApp.utility     = require("utils.utility")
+--// shader
+myApp.ShaderUtils = require("utils.shader_utils")
+--// luaoc luaj
+myApp.CrossHelper = require("app.helper.cross_helper")
+--// 本地化
+myApp.i18n        = require("app.helper.i18n_helper")
 
 myApp.LocalStore = require("utils.local_store")
 

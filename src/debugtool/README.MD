@@ -1,6 +1,8 @@
 ## logger工具
 1. windows根据日志级别区分颜色
 2. app内置日志浏览器
+3. 浏览历史日志
+4. 上传日志配合nodejs/http_upload服务器
 
 ### 运行环境
 控制台颜色区分仅限于windows

@@ -29,28 +29,28 @@ end
 --  * 进入场景
 --  */
 function BaseScene:onEnter()
-
+    logger.trace(self.__cname, "onEnter")
 end
 
 -- /**
 --  * 场景执行完过度动画
 --  */
 function BaseScene:onEnterTransitionFinish()
-
+    logger.trace(self.__cname, "onEnterTransitionFinish")
 end
 
 -- /**
 --  * 退出场景
 --  */
 function BaseScene:onExit()
-
+    logger.trace(self.__cname, "onExit")
 end
 
 -- /**
 --  * 完全退出场景
 --  */
 function BaseScene:onCleanup()
-    
+    logger.trace(self.__cname, "onCleanup")
 end
 
 return BaseScene

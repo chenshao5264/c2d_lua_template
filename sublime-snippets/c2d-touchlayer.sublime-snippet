@@ -21,7 +21,7 @@ local eventDispatcher = cc.Director:getInstance():getEventDispatcher()
 eventDispatcher:addEventListenerWithSceneGraphPriority(listener, ${1:})
 ]]></content>
     <!-- Optional: Set a tabTrigger to define how to trigger the snippet -->
-    <tabTrigger>touch</tabTrigger>
+    <tabTrigger>ctouch</tabTrigger>
     <!-- Optional: Set a scope to limit where the snippet will trigger -->
     <!-- <scope>source.python</scope> -->
 </snippet>

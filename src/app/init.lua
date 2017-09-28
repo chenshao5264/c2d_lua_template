@@ -7,37 +7,37 @@
 require("debugtool.init")
 
 --// app通用配置
-myApp.kCommon = require("app.configs.common_config") 
+myApp.kCommon = require("app.configs.CommonConfig") 
 
 --// cs画布配置
-myApp.kCSB    = require("app.configs.csb_config") 
+myApp.kCSB    = require("app.configs.CsbConfig") 
 
 --// mvc配置
-local mvc = require("app.configs.mvc_config")
+local mvc = require("app.configs.MvcConfig")
 myApp.kMVC        = mvc.kMVC
 myApp.kModel      = mvc.kModel
 myApp.kView       = mvc.kView
 myApp.kController = mvc.kController
 
 --// 数据模型常量
-myApp.kSchema = require("app.constant.schema_const")
+myApp.kSchema = require("app.constant.SchemaConst")
 
 --// 事件名称常量
-myApp.kEvt    = require("app.constant.evt_const")
+myApp.kEvt    = require("app.constant.EvtConst")
 
 --// 游戏中用到的常量
-myApp.kDef  = require("app.constant.define_const")
+myApp.kDef  = require("app.constant.DefineConst")
 
 --// 实用工具集
 myApp.utility     = require("utils.utility")
 --// shader
-myApp.ShaderUtils = require("utils.shader_utils")
+myApp.ShaderUtils = require("utils.ShaderUtils")
 --// luaoc luaj
-myApp.CrossHelper = require("app.helper.cross_helper")
+myApp.CrossHelper = require("app.helper.CrossHelper")
 --// 本地化
-myApp.i18n        = require("app.helper.i18n_helper")
+myApp.i18n        = require("app.helper.I18nHelper")
 
-myApp.LocalStore = require("utils.local_store")
+myApp.LocalStore = require("utils.LocalStorage")
 
 --// 定时器
 myApp.scheduler = require("utils.scheduler")

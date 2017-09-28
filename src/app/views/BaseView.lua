@@ -13,7 +13,7 @@ function BaseView:ctor()
     self:onInit()
 
     if not myApp.kCSB[self.__cname] then
-        logger.error("没有设置csb，在configs/csb_config中设置")
+        logger.error("没有设置csb，在configs/CsbConfig中设置")
         return
     end
     logger.debug("load csb name = " ..self.__cname)

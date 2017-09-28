@@ -48,17 +48,17 @@ sublime-snippets/下保存了常用的代码片段
 > view.sublime-snippet          创建view
 
 #### 功能
-__1. 国际化__
+__1. 国际化__  
 utils/i18n 和 app/helper/i18n_helper.lua
 
-__2. http__
+__2. http__  
 utils/http_utils.lua
 
-__3. shader__
+__3. shader__  
 utils/shader_utils.lua
 
-__4. 常用工具集__
+__4. 常用工具集__  
 utils/utility.lua
 
-__5. 日志__
+__5. 日志__  
 debugtool/  

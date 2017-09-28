@@ -37,7 +37,7 @@ end
 
 -- /**
 --  * 创建mvc
---  * @param mvcConfig 对应app/configs/mvc_config.lua
+--  * @param mvcConfig 对应app/configs/MvcConfig.lua
 --  */
 function MyApp:createMVC(mvcConfig)
 

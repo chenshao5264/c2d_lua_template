@@ -2,7 +2,7 @@
 -- Author: Your Name
 -- Date: 2017-09-22 22:12:43
 --
-local BaseView = require('app.views.base_view')
+local BaseView = require('app.views.BaseView')
 local M = class("SplashView", BaseView)
 
 

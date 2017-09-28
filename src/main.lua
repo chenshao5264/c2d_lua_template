@@ -25,9 +25,7 @@ local function main()
 end
 
 
-local status, msg = xpcall(main, _G__TRACKBACK__)
-if not status then
-    print(msg)
-end
+xpcall(main, _G__TRACKBACK__)
+
 
 

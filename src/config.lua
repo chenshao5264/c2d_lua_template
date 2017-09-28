@@ -34,5 +34,5 @@ APP_ENV = "DEVELOP"
 --APP_ENV = "PUBLISH"
 
 
-LAUNCH_SCENE = "splash_scene"
+LAUNCH_SCENE = "SplashScene"
 

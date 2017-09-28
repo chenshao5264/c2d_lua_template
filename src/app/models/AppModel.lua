@@ -3,7 +3,7 @@
 -- Date: 2017-09-08 11:53:49
 -- Brief: 
 --
-local BaseModel = require('app.models.base_model')
+local BaseModel = require('app.models.BaseModel')
 local Model = class("AppModel", BaseModel)
 
 local kSchema = myApp.kSchema

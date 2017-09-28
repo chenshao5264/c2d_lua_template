@@ -9,22 +9,22 @@ local kMVC = {
     template = {
         m = "player_model",
         v = "template_view",
-        c = "template_controller",
+        c = "SplashController",
     }
 }
 
 local kModel = {
-    APP      = "app_model",
+    APP      = "AppModel",
     RESPONSE = "response_model",
 
 }
 
 local kView = {
-    SPLASH_VIEW = "splash_view",
+    SplashView = "SplashView",
 }
 
 local kController = {
-    
+    SplashController = "SplashController",
 }
 
 return {kMVC = kMVC, kModel = kModel, kView = kView, kController = kController}

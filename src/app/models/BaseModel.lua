@@ -19,8 +19,31 @@ BaseModel.fields = {
     
 }
 
+local function func_name(k)
+    local firstLetter = string_sub(k, 1, 1)
+    local fcName
+    if string_len(k) > 1 then
+        fcName = string_upper(firstLetter) ..string_sub(k, 2, -1)
+    else
+        fcName = string_upper(firstLetter)
+    end
+
+    return fcName
+end
+
 function BaseModel:ctor(properties)
     self:_setProperties(properties)
+
+    --// 禁止未声明的变量赋值
+    local mt = {
+        __newindex = function(table, key, value)
+            logger.fatal("Assign value to nonexistent key. key = " ..key)
+        end,
+        __index = function(table, key)
+            logger.fatal("Key is nonexistent key. key = " ..key)
+        end,
+    }
+    setmetatable(self, mt)
 end
 
 function BaseModel:_setProperties(properties)
@@ -43,7 +66,20 @@ function BaseModel:_setProperties(properties)
                     val = ""
                 end
             elseif typ == "table" then
+
                 val = checktable(val)
+                --// 目前止支持一层table,后续扩展
+                for k, v in pairs(val) do
+                    --// set
+                    self["set" ..func_name(k)] = function(self, value)
+                        val[k] = value
+                    end
+
+                    --// get
+                    self["get" ..func_name(k)] = function(self)
+                        return val[k]
+                    end
+                end
             end
         else
             val = schema
@@ -51,21 +87,26 @@ function BaseModel:_setProperties(properties)
 
         self[propname] = val
 
-        local firstLetter = string_sub(field, 1, 1)
-        local fcName
-        if string_len(field) > 1 then
-            fcName = string_upper(firstLetter) ..string_sub(field, 2, -1)
-        else
-            fcName = string_upper(firstLetter)
+        --// 禁止未声明的变量赋值
+        if type(self[propname]) == "table" then
+            local mt = {
+                __newindex = function(table, key, value)
+                    logger.fatal("Assign value to nonexistent key. key = " ..key)
+                end,
+                __index = function(table, key)
+                    logger.fatal("Key is nonexistent key. key = " ..key)
+                end,
+            }
+            setmetatable(self[propname], mt)
         end
         
         --// set
-        self["set" ..fcName] = function(self, value)
+        self["set" ..func_name(field)] = function(self, value)
             self[propname] = value
         end
 
         --// get
-        self["get" ..fcName] = function(self)
+        self["get" ..func_name(field)] = function(self)
             return self[propname]
         end
     end

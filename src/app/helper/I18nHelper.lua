@@ -5,7 +5,7 @@
 
 local i18nHelper = {}
 
-local i18n = require("utils.i18n.init")
+local i18n = require("libs.init")
 
 local function load(language)
     language = language or device.language

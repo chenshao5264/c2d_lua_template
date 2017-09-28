@@ -31,9 +31,11 @@ local function func_name(k)
     return fcName
 end
 
+
 function BaseModel:ctor(properties)
     self:_setProperties(properties)
 
+    --[[
     --// 禁止未声明的变量赋值
     local mt = {
         __newindex = function(table, key, value)
@@ -44,6 +46,7 @@ function BaseModel:ctor(properties)
         end,
     }
     setmetatable(self, mt)
+    --]]
 end
 
 function BaseModel:_setProperties(properties)
@@ -87,6 +90,7 @@ function BaseModel:_setProperties(properties)
 
         self[propname] = val
 
+        --[[
         --// 禁止未声明的变量赋值
         if type(self[propname]) == "table" then
             local mt = {
@@ -99,6 +103,7 @@ function BaseModel:_setProperties(properties)
             }
             setmetatable(self[propname], mt)
         end
+        --]]
         
         --// set
         self["set" ..func_name(field)] = function(self, value)

@@ -41,3 +41,8 @@ myApp.LocalStore = require("utils.LocalStorage")
 
 --// 定时器
 myApp.scheduler = require("utils.scheduler")
+
+--// pb
+if USER_PROTOBUF then
+    require("app.network.protobuf.init")
+end

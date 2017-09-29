@@ -35,16 +35,12 @@ end
 function BaseModel:ctor(properties)
     self:_setProperties(properties)
 
-    --[[
+    ---[[
     --// 禁止未声明的变量赋值
-    local mt = {
-        __newindex = function(table, key, value)
-            logger.fatal("Assign value to nonexistent key. key = " ..key)
-        end,
-        __index = function(table, key)
-            logger.fatal("Key is nonexistent key. key = " ..key)
-        end,
-    }
+    local mt = getmetatable(self)
+    mt.__newindex = function(table, key, value)
+        logger.fatal("Assign value to nonexistent key. key = " ..key)
+    end
     setmetatable(self, mt)
     --]]
 end
@@ -90,24 +86,13 @@ function BaseModel:_setProperties(properties)
 
         self[propname] = val
 
-        --[[
-        --// 禁止未声明的变量赋值
-        if type(self[propname]) == "table" then
-            local mt = {
-                __newindex = function(table, key, value)
-                    logger.fatal("Assign value to nonexistent key. key = " ..key)
-                end,
-                __index = function(table, key)
-                    logger.fatal("Key is nonexistent key. key = " ..key)
-                end,
-            }
-            setmetatable(self[propname], mt)
-        end
-        --]]
-        
-        --// set
-        self["set" ..func_name(field)] = function(self, value)
-            self[propname] = value
+
+        --// table 不创建set方法
+        if type(self[propname]) ~= "table" then
+            --// set
+            self["set" ..func_name(field)] = function(self, value)
+                self[propname] = value
+            end
         end
 
         --// get

@@ -28,6 +28,8 @@ CC_DESIGN_RESOLUTION = {
     end
 }
 
+USER_PROTOBUF = false
+
 -- env
 APP_ENV = "DEVELOP"
 --APP_ENV = "TEST"

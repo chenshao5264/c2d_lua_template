@@ -45,12 +45,20 @@ function BaseModel:ctor(properties)
     --]]
 end
 
+--// typ 
+--// number 数字
+--// bool 布尔
+--// string 字符串
+--// table 表
+--// ctable 常量表,不允许新建属性
+--// 若要重置表,则调用resetXXX()
+
 function BaseModel:_setProperties(properties)
 
     properties = checktable(properties)
 
     for field, schema in pairs(self.schema) do
-        local typ, val = schema[1], schema[2]
+        local typ, val, sche = schema[1], schema[2], schema[3]
         local propname = "_" ..field
 
         if val ~= nil then
@@ -64,7 +72,7 @@ function BaseModel:_setProperties(properties)
                 else
                     val = ""
                 end
-            elseif typ == "table" then
+            elseif typ == "table" or typ == "ctable" then
 
                 val = checktable(val)
                 --// 目前止支持一层table,后续扩展
@@ -86,12 +94,55 @@ function BaseModel:_setProperties(properties)
 
         self[propname] = val
 
-
         --// table 不创建set方法
         if type(self[propname]) ~= "table" then
             --// set
             self["set" ..func_name(field)] = function(self, value)
                 self[propname] = value
+            end
+        else
+            local oldData = clone(val)
+            self["reset" ..func_name(field)] = function(self)
+                for k, _ in pairs(self[propname]) do
+                    self[propname][k] = oldData[k]
+                end
+            end
+
+            if typ == "ctable" then
+                --// 禁止未声明的变量赋值
+                local mt = getmetatable(self[propname]) or {}
+                mt.__newindex = function(table, key, value)
+                    logger.fatal("Assign value to nonexistent key. key = " ..key)
+                end
+                setmetatable(self[propname], mt)
+                --[[
+            elseif typ == "rtable" then
+
+                local mt = getmetatable(self[propname]) or {}
+                mt.__newindex = function(table, key, value)
+
+                    if type(value) ~= "table" then
+                        logger.fatal("key is must table. now is " ..type(value))
+                        return
+                    end
+
+                    local nonkeys = {}
+                    for k, v in pairs(value) do
+                        if not sche[k] then
+                            nonkeys[#nonkeys + 1] = k
+                        end
+                    end
+
+                    logger.debug(nonkeys, "nonkeys")
+
+                    if #nonkeys == 0 then
+                        rawset(table, key, value)
+                    else
+                        logger.fatal(nonkeys, "key is nonexistent.")
+                    end
+                end
+                setmetatable(self[propname], mt)
+                --]]
             end
         end
 

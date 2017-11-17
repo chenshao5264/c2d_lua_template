@@ -1,6 +1,6 @@
 <snippet>
     <content><![CDATA[
-local BaseModel = require('app.models.base_model')
+local BaseModel = require('app.models.BaseModel')
 local Model = class("${1:xxx}Model", BaseModel)
 
 local kSchema = myApp.kSchema

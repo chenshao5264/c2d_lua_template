@@ -1,11 +1,11 @@
 <snippet>
     <content><![CDATA[
-local BaseView = require('app.views.base_view')
+local BaseView = require('app.views.BaseView')
 local M = class("${1:xxx}View", BaseView)
 
 
 function M:ctor()
-    self.super.ctor(self, myApp.kCSB[self.__cname])
+    self.super.ctor(self)
     
 end
 

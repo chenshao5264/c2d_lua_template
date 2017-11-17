@@ -1,9 +1,7 @@
 <snippet>
     <content><![CDATA[
-local BaseController = require('app.controllers.base_controller')
+local BaseController = require('app.controllers.BaseController')
 local M = class("${1:xxx}Controller", BaseController)
-
-local kEvt = myApp.kEvt
 
 --// step1
 function M:ctor()

@@ -3,24 +3,12 @@
 local BaseScene = require('app.scenes.base_scene')
 local M = class("${1:xxx}Scene", BaseScene)
 
-local kView = myApp.kView
---local kController = myApp.kController
---local kModel      = myApp.kModel
 
 function M:ctor(...)
     self.super.ctor(self)
     --// todo
     --// ...
 
-    local mainView = myApp:createView(kView.${2:xxx}_VIEW)
-    self:addChild(mainView, 1)
-
-    -- local mainController = myApp:createController(kController.xxx_CONTROLLER)
-    -- self:addChild(mainController)
-    -- mainController:bindView(mainView)
-
-    -- local mainModel = myApp:createModel(kModel.xxx_MODEL)
-    -- mainController:bindModel(mainModel)
 end
 
 function M:onInit()

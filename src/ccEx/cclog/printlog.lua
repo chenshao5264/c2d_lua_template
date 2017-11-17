@@ -14,24 +14,22 @@ end
 
 local HTML_COLOR = {"blue", "cyan", "green", "yellow", "red", "purple"}
 
-local _thisFileName
-
-local function write2File(color, str)
-
-
-    if not _thisFileName then
-        _thisFileName = LOG_DIR_ROOT ..os.date("%Y-%m-%d %H-%M-%S") .."-log.html"
-    end
-
-    local file = io.open(_thisFileName, "a+")
-    if file then
-        local content = os.date("%Y-%m-%d %H:%M:%S") ..": " ..str ..'\n'
-        content = string.format("<font color=%s>%s</font><br/>\n", color, content)
-        file:write(content)
-        file:close()
-    end
+local _thisFile
+if IS_WRITE_TO_FILE then
+    --local filename = LOG_DIR_ROOT ..os.date("%Y-%m-%d %H-%M-%S") .."-log.html"
+    local filename = LOG_DIR_ROOT .."-log.html"
+    _thisFile = io.open(filename, "w+")
 end
 
+local function write2File(level, str)
+
+    if _thisFile then
+        local content = os.date("%Y-%m-%d %H:%M:%S") ..": " ..str ..'\n'
+        content = string.format("<font color=%s>%s</font><br/>\n", HTML_COLOR[level], content)
+        _thisFile:write(content)
+        _thisFile:flush()
+    end
+end
 
 local function checkArgType(arg)
     if type(arg) == "table" then
@@ -54,12 +52,35 @@ local function concat(...)
     return table.concat(tb, "\t")
 end
 
+local function checkArgType_(arg)
+    if type(arg) == "table" then
+        local result = dump(arg, "table_table", 10, 10086)
+        arg = table.concat(result, "<br/>")
+    else
+        arg = tostring(arg)
+    end
+
+    return arg
+end
+
+local function concat_(...)
+    local tb = {}
+    for i=1, select('#', ...) do
+        local arg = select(i, ...)  
+
+        tb[#tb + 1] = checkArgType_(arg)
+    end
+    return table.concat(tb, "\t")
+end
+
 local color      = import(".color")
 local colorPrint = color.colorPrint
 local colors = {color.BLUE, color.CYAN, color.GREEN, color.YELLOW, color.RED, color.PURPLE}
 
 local methods    = {"trace", "debug", "info", "warn", "error", "fatal"}
 local levels = {ALL = 0}
+
+logger = {}
 
 cclog = {}
 
@@ -71,17 +92,22 @@ for i, name in ipairs(methods) do
     levels[level_name] = i
     local tag = '['..level_name..']'
     funcs[name] = function(...)
-        local pntRet = os.date("[%H:%M:%S] ") .. concat(...) .. "\n"
+        local date = os.date("[%H:%M:%S] ")
+        local pntRet = date .. concat(...) .. "\n"
         colorPrint(colors[i], tag, pntRet)
-        write2File(HTML_COLOR[i], pntRet)
+
+        pntRet = date .. concat_(...) .. "\n"
+        write2File(i, pntRet)
     end
 end
 
-function cclog.setLevel(lv)
+function logger.setLevel(lv)
     for i, funcname in ipairs(methods) do
         if i < lv then
+            logger[funcname] = nop
             cclog[funcname] = nop
         else
+            logger[funcname] = funcs[funcname]
             cclog[funcname] = funcs[funcname]
         end
     end

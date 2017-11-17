@@ -5,13 +5,16 @@
 --
 
 
+IS_WRITE_TO_FILE = true
+
 import(".printLog")
 
-cclog.setLevel(0)
 
-cclog.trace = cclog.trace  --// level 1
-cclog.debug = cclog.debug  --// level 2
-cclog.info  = cclog.info   --// level 3
-cclog.warn  = cclog.warn   --// level 4
-cclog.error = cclog.error  --// level 5
-cclog.fatal = cclog.fatal  --// level 6
+logger.setLevel(0)
+
+logger.trace = logger.trace  --// level 1
+logger.debug = logger.debug  --// level 2
+logger.info  = logger.info   --// level 3
+logger.warn  = logger.warn   --// level 4
+logger.error = logger.error  --// level 5
+logger.fatal = logger.fatal  --// level 6

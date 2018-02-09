@@ -1,10 +1,10 @@
 <snippet>
     <content><![CDATA[
 -- /**
---  * @brief  ${1:}
---  * @param  
---  * @return
---  */
+--   * ${1:}
+--   * @param  {}
+--   * @return
+--   */
 ]]></content>
     <!-- Optional: Set a tabTrigger to define how to trigger the snippet -->
     <tabTrigger>---</tabTrigger>

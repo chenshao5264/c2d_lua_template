@@ -1,32 +1,30 @@
-
 cc.FileUtils:getInstance():setPopupNotify(false)
-cc.FileUtils:getInstance():addSearchPath("src/app/network/protobuf/")
--- cc.FileUtils:getInstance():addSearchPath("src/")
--- cc.FileUtils:getInstance():addSearchPath("res/")
 
-require "config"
+
+cc.FileUtils:getInstance():addSearchPath("src")
+cc.FileUtils:getInstance():addSearchPath("src/apis")
+cc.FileUtils:getInstance():addSearchPath("src/lobby/srcc")
+cc.FileUtils:getInstance():addSearchPath("src/lobby/res")
+
+local writeablePath = cc.FileUtils:getInstance():getWritablePath()
+cc.FileUtils:getInstance():addSearchPath(writeablePath .."update", true)
+
+
+require "config" 
 require "cocos.init"
+require "ccEx.cclog.init"
+local appDelegate = require "AppDelegate"
 
-local _G__TRACKBACK__ = function(msg)
-    local msg = debug.traceback(msg, 3)
-
-    if logger and logger.error then
-        logger.error(msg)
-    else
-        print(msg)
-    end
-    
- 
-    return msg
+--for CCLuaEngine traceback
+function __G__TRACKBACK__(msg)
+    cclog.error("----------------------------------------")
+    cclog.error("LUA ERROR: " .. tostring(msg) .. "\n")
+    cclog.error(debug.traceback())
+    cclog.error("----------------------------------------")
 end
 
 local function main()
-    myApp = require("app.MyApp"):create()
-    myApp:run()
+    appDelegate:runApp()
 end
 
-
-xpcall(main, _G__TRACKBACK__)
-
-
-
+xpcall(main, __G__TRACKBACK__)

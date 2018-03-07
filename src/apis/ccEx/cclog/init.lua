@@ -5,20 +5,25 @@
 --
 
 
-IS_WRITE_TO_FILE = false
+cc.exports.cclog = {}
+
+require("cclog.printlog")
 
 
-require("ccEx.cclog.printlog")
+cclog.setLevel(0)
 
-if DEBUG == 0 then
-    logger.setLevel(10)
-else
-    logger.setLevel(0)
-end
 
-logger.trace = logger.trace  --// level 1
-logger.debug = logger.debug  --// level 2
-logger.info  = logger.info   --// level 3
-logger.warn  = logger.warn   --// level 4
-logger.error = logger.error  --// level 5
-logger.fatal = logger.fatal  --// level 6
+cclog.trace = cclog.trace  --// level 1
+cclog.debug = cclog.debug  --// level 2
+cclog.info  = cclog.info   --// level 3
+cclog.warn  = cclog.warn   --// level 4
+cclog.error = cclog.error  --// level 5
+cclog.fatal = cclog.fatal  --// level 6
+
+
+cclog.trace('trace trace trace')
+cclog.debug('debug debug debug')
+cclog.info('info info info')
+cclog.warn('warn warn warn')
+cclog.error('error error error')
+cclog.fatal('fatal fatal fatal')

@@ -6,13 +6,14 @@
 
 local old_print    = print
 
-local HTML_COLOR = {"blue", "cyan", "green", "yellow", "red", "purple"}
-
-
 local function checkArgType(arg)
     if type(arg) == "table" then
-        local result = dump(arg, "table_table", 10, 10086)
-        arg = table.concat(result, "\n")
+        local result = dump(arg, "table_table", 10)
+        if result then
+            arg = table.concat(result, "\n")
+        else
+            arg = ""
+        end
     else
         arg = tostring(arg)
     end
@@ -32,8 +33,12 @@ end
 
 local function checkArgType_(arg)
     if type(arg) == "table" then
-        local result = dump(arg, "table_table", 10, 10086)
-        arg = table.concat(result, "<br/>\n")
+        local result = dump(arg, "table_table", 10)
+        if result then
+            arg = table.concat(result, "<br/>\n")
+        else
+            arg = ""
+        end
     else
         arg = tostring(arg)
     end
